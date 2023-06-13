@@ -10,9 +10,9 @@ class GrafoLib:
     def __init__(self, config):
         self.tipo_representacao = config['tipo_representacao']
         self.caminho_arq = config['caminho_grafo_arq']
-        self.criarGrafo()
+        self.instanciarGrafo()
 
-    def criarGrafo(self):
+    def instanciarGrafo(self):
         arestas = obterArestas(self.caminho_arq)
         if(self.tipo_representacao == "lista"):
             self.grafo = GrafoListaAdj(arestas)
@@ -34,6 +34,10 @@ class GrafoLib:
         print('executando encontrarComponentesConexos')
         ...
 
+    def encontrarDistanciaMedia(self):
+        print('executando encontrarDistanciaMedia')
+        ...
+    
     def encontrarDistanciaECaminhoMinimo(self):
         print('executando encontrarDistanciaECaminhoMinimo')
         ...
@@ -41,11 +45,6 @@ class GrafoLib:
     def encontrarMST(self):
         print('executando encontrarMST')
         ...
-
-    def encontrarDistanciaMedia(self):
-        print('executando encontrarDistanciaMedia')
-        ...
-    
     
 
         
