@@ -22,29 +22,34 @@ class GrafoLib:
             print('Escolha um valor válido')
             sys.exit()
 
-    def BFS(self, initialVertice):
+    def executarBFS(self, initialVertice):
         print('executando BFS')
         ...
     
-    def DFS(self, initialVertice):
+    def executarDFS(self, initialVertice):
         print('executando DFS')
         ...
 
-    def encontrarComponentesConexos(self):
+    def executarEncontrarComponentesConexos(self):
         print('executando encontrarComponentesConexos')
         ...
 
-    def encontrarDistanciaMedia(self):
+    def executarEcontrarDistanciaMedia(self):
         print('executando encontrarDistanciaMedia')
         ...
     
-    def encontrarDistanciaECaminhoMinimo(self):
-        print('executando encontrarDistanciaECaminhoMinimo')
-        ...
+    def executarEncontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
+        distance, path = self.grafo.dijkstra2Vertices(self.grafo, v1, v2)
+
+        print(f"A distância entre o vértice {v1} e o vértice {v2} é: {distance}")
+        print(f"O caminho mais curto é: {path}")
     
-    def encontrarMST(self):
+    def executarEncontrarMST(self):
         print('executando encontrarMST')
         ...
+
+    def executarPrintGraph(self):
+        print(self.grafo)
     
 
         
