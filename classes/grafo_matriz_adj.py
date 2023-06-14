@@ -98,6 +98,32 @@ class GrafoMatrizAdj(Grafo):
 
         return distances[v2], paths[v2]
     
+    def dijkstraTodosVertices(self, origem):
+        num_vertices = len(self.adj)
+        distancias = [float('inf')] * num_vertices
+        caminhos = [[] for _ in range(num_vertices)]
+        distancias[origem] = 0
+        fila_prioridade = [(0, origem)]
+
+        while fila_prioridade:
+            distancia_atual, vertice_atual = heapq.heappop(fila_prioridade)
+
+            if distancia_atual > distancias[vertice_atual]:
+                continue
+
+            for vizinho in range(num_vertices):
+                peso = self.adj[vertice_atual][vizinho]
+
+                if peso > 0:
+                    nova_distancia = distancias[vertice_atual] + peso
+
+                    if nova_distancia < distancias[vizinho]:
+                        distancias[vizinho] = nova_distancia
+                        caminhos[vizinho] = caminhos[vertice_atual] + [vizinho]
+                        heapq.heappush(fila_prioridade, (nova_distancia, vizinho))
+
+        return distancias, caminhos
+    
     def BFS(grafo, v1, v2):
         num_vertices = len(grafo)
         visited = [False] * num_vertices
