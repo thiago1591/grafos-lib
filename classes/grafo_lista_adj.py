@@ -70,6 +70,28 @@ class GrafoListaAdj(Grafo):
                     heapq.heappush(queue, (distance, neighbor))
 
         return distances[v2], paths[v2]
+    
+    def dijkstraTodosVertices(self, origem):
+        distancias = defaultdict(lambda: float('inf'))
+        caminhos = defaultdict(list)
+        distancias[origem] = 0
+        fila_prioridade = [(0, origem)]
+
+        while fila_prioridade:
+            distancia_atual, vertice_atual = heapq.heappop(fila_prioridade)
+
+            if distancia_atual > distancias[vertice_atual]:
+                continue
+
+            for vizinho, peso in self.adj[vertice_atual]:
+                nova_distancia = distancias[vertice_atual] + peso
+
+                if nova_distancia < distancias[vizinho]:
+                    distancias[vizinho] = nova_distancia
+                    caminhos[vizinho] = caminhos[vertice_atual] + [vizinho]
+                    heapq.heappush(fila_prioridade, (nova_distancia, vizinho))
+
+        return distancias, caminhos
 
     def BFS(self, v1, v2):
         visited = set()

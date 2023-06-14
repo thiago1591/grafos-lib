@@ -37,11 +37,20 @@ class GrafoLib:
         print('executando encontrarDistanciaMedia')
         ...
     
-    def executarEncontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
-        distance, path = self.grafo.dijkstra2Vertices(v1, v2)
+    def executarEncontrarDistancia2Vertices(self, v1, v2):
+        distancia, caminho = self.grafo.dijkstra2Vertices(v1, v2)
 
-        print(f"A distância entre o vértice {v1} e o vértice {v2} é: {distance}")
-        print(f"O caminho mais curto é: {path}")
+        print(f"A distância entre o vértice {v1} e o vértice {v2} é: {distancia}")
+        print(f"O caminho mais curto é: {caminho}")
+    
+    def executarEncontrarDistanciaUmVerticeParaTodos(self, origem):
+        distancias, caminhos = self.grafo.dijkstraTodosVertices(origem)
+
+        for vertice in range(len(self.grafo.adj)):
+            distancia = distancias[vertice]
+            caminho = caminhos[vertice]
+            print(f"Distância para o vértice {vertice}: {distancia}")
+            print(f"Caminho para o vértice {vertice}: {caminho}")
     
     def executarEncontrarMST(self):
         print('executando encontrarMST')

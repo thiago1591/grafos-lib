@@ -1,10 +1,10 @@
 from classes.grafo_lib import *
 
 lib = GrafoLib({
-    "tipo_representacao": 'matriz',
+    "tipo_representacao": 'lista',
     "caminho_grafo_arq": "inputs/grafo_0.txt"
 })
-lib.executarEncontrarDistanciaECaminhoMinimo2Vertices(1, 4)
+lib.executarEncontrarDistanciaUmVerticeParaTodos(1)
 #lib.grafo.print_graph()
 
 # lib.BFS(0)
