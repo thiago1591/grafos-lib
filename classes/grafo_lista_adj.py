@@ -22,6 +22,12 @@ class GrafoListaAdj(object):
 
     def encontrar_vertice(self, v):
         return self.adj[v]
+
+    def print_graph(self):
+        for vertex in self.adj:
+            print(f"Adjacency list of vertex {vertex}:")
+            for neighbor, weight in self.adj[vertex]:
+                print(f" -> {neighbor} (weight: {weight})")
     
     # def __len__(self):
     #return len(self.adj)

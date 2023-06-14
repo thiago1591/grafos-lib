@@ -20,9 +20,9 @@ class GrafoMatrizAdj:
     def obter_arestas(self):
         arestas = []
         for i in range(self.num_vertices):
-            for j in range(i + 1, self.num_vertices):
+            for j in range(self.num_vertices):
                 if self.adj[i][j] != 0:
-                    arestas.append((i, j))
+                    arestas.append((i, j, self.adj[i][j]))
         return arestas
 
     def adicionar_aresta(self, vertice1, vertice2, peso):
@@ -34,3 +34,12 @@ class GrafoMatrizAdj:
 
     def encontrar_vertice(self, v):
         return self.adj[v]
+    
+    def print_graph(self):
+        arestas = []
+        for i in range(self.num_vertices):
+            print(f'Adjacency list of vertex ${i} :')
+            for j in range(self.num_vertices):
+                if self.adj[i][j] != 0:
+                    print(f'-> {j} (weight: {self.adj[i][j]})')
+        return arestas
