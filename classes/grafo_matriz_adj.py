@@ -1,23 +1,35 @@
 import heapq
 from classes.grafo import Grafo
-from utils.checa_pesos_negativos import checaPesosNegativos
 from collections import deque
 
 class GrafoMatrizAdj(Grafo):
-    def __init__(self, input_data):
+    def __init__(self, arestas):
         self.num_vertices = 0
         self.adj = []
-        self.criar_grafo(input_data)
+        self.criar_grafo(arestas)
 
-    def criar_grafo(self, input_data):
-        for edge in input_data:
-            node1, node2, weight = edge
-            self.num_vertices = max(self.num_vertices, node1+1, node2+1)
-        self.adj = [[0] * self.num_vertices for _ in range(self.num_vertices)]
+    def criar_grafo(self, arestas):
+        self.ponderado = len(arestas[0]) > 2
+        if(self.ponderado):
+            for edge in arestas:
+                node1, node2, weight = edge
+                self.num_vertices = max(self.num_vertices, node1+1, node2+1)
+            self.adj = [[0] * self.num_vertices for _ in range(self.num_vertices)]
 
-        for edge in input_data:
-            node1, node2, weight = edge
-            self.adicionar_aresta(node1, node2, weight)
+            for edge in arestas:
+                node1, node2, weight = edge
+
+                self.adicionar_aresta(node1, node2, weight)
+        else:
+            for edge in arestas:
+                node1, node2 = edge
+                self.num_vertices = max(self.num_vertices, node1+1, node2+1)
+            self.adj = [[0] * self.num_vertices for _ in range(self.num_vertices)]
+
+            for edge in arestas:
+                node1, node2 = edge
+
+                self.adicionar_aresta(node1, node2, 1)
 
     def obter_vertices(self):
         return range(self.num_vertices)
@@ -31,8 +43,8 @@ class GrafoMatrizAdj(Grafo):
         return arestas
 
     def adicionar_aresta(self, vertice1, vertice2, peso):
-        self.adj[vertice1][vertice2] = peso
-        self.adj[vertice2][vertice1] = peso
+            self.adj[vertice1][vertice2] = peso
+            self.adj[vertice2][vertice1] = peso
 
     def existe_aresta(self, vertice1, vertice2):
         return self.adj[vertice1][vertice2] != 0
@@ -48,20 +60,19 @@ class GrafoMatrizAdj(Grafo):
                 if self.adj[i][j] != 0:
                     print(f'-> {j} (weight: {self.adj[i][j]})')
         return arestas
-
-    def checaGrafoEPonderado(self):
-        for linha in self.adj:
-            for peso in linha:
-                if peso > 1:
-                    return True
-        return False
+    
+    def checa_pesos_negativos(self):
+        for row in self.adj:
+            for weight in row:
+                if weight < 0:
+                    return False
     
     def dijkstra2Vertices(self, v1, v2):
-        pesos_negativos = checaPesosNegativos(self.adj)
+        pesos_negativos = self.checa_pesos_negativos()
 
         if(pesos_negativos): return
 
-        num_vertices = len(self.graph)
+        num_vertices = len(self.adj)
         distances = [float('inf')] * num_vertices
         distances[v1] = 0
         paths = [[] for _ in range(num_vertices)]
@@ -74,7 +85,7 @@ class GrafoMatrizAdj(Grafo):
             if current_distance > distances[current_vertex]:
                 continue
 
-            for neighbor, weight in enumerate(self.graph[current_vertex]):
+            for neighbor, weight in enumerate(self.adj[current_vertex]):
                 if weight == 0:
                     continue
 
@@ -110,9 +121,8 @@ class GrafoMatrizAdj(Grafo):
 
         return distances[v2], paths[v2]
 
-    def encontrarDistanciaECaminhoMinimo2Vertices(self):
-        grafoEPonderado = self.checaGrafoEPonderado()
-        if(grafoEPonderado is False):
-            return self.BFS()
+    def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
+        if(self.ponderado is False):
+            return self.BFS(self.adj, v1, v2)
         else:
-            return self.dijkstra2Vertices()
+            return self.dijkstra2Vertices(self.adj, v1, v2)

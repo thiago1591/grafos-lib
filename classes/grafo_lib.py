@@ -3,8 +3,6 @@ import sys
 from classes.grafo_lista_adj import GrafoListaAdj
 from classes.grafo_matriz_adj import GrafoMatrizAdj
 from utils.obter_arestas import obterArestas
-from algoritmos.BFS import BFS
-from algoritmos.DFS import DFS
 
 class GrafoLib:
     def __init__(self, config):
@@ -14,12 +12,13 @@ class GrafoLib:
 
     def instanciarGrafo(self):
         arestas = obterArestas(self.caminho_arq)
+
         if(self.tipo_representacao == "lista"):
             self.grafo = GrafoListaAdj(arestas)
         elif(self.tipo_representacao == "matriz"):
             self.grafo = GrafoMatrizAdj(arestas)
         else:
-            print('Escolha um valor válido')
+            print('Representação inválida. Escolha entre "lista" e "matriz"')
             sys.exit()
 
     def executarBFS(self, initialVertice):
@@ -39,7 +38,7 @@ class GrafoLib:
         ...
     
     def executarEncontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
-        distance, path = self.grafo.dijkstra2Vertices(self.grafo, v1, v2)
+        distance, path = self.grafo.dijkstra2Vertices(v1, v2)
 
         print(f"A distância entre o vértice {v1} e o vértice {v2} é: {distance}")
         print(f"O caminho mais curto é: {path}")
