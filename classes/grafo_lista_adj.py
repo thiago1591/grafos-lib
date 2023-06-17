@@ -122,6 +122,23 @@ class GrafoListaAdj(Grafo):
 
         return distances[v2], paths[v2]
     
+    def BFS_tree(self, initialVertice):
+        visited = {}
+        queue = []
+
+        visited[initialVertice] = 0
+        queue.append(initialVertice)
+
+        while queue:
+            s = queue.pop(0)
+
+            for neighbour, _ in self.adj[s]:
+                if neighbour not in visited:
+                    visited[neighbour] = visited[s] + 1
+                    queue.append(neighbour)
+        
+        return visited
+
     def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
         if(self.ponderado is False):
             return self.BFS(self.adj, v1, v2)

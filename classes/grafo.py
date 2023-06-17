@@ -41,5 +41,9 @@ class Grafo(ABC):
         raise NotImplementedError("Método BFS deve ser implementado nas subclasses")
     
     @abstractmethod
+    def BFS_tree(self):
+        raise NotImplementedError("Método BFS_tree deve ser implementado nas subclasses")
+
+    @abstractmethod
     def encontrarDistanciaECaminhoMinimo2Vertices(self):
         raise NotImplementedError("Método encontrarDistanciaECaminhoMinimo2Vertices deve ser implementado nas subclasses")

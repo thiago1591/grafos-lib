@@ -22,8 +22,10 @@ class GrafoLib:
             sys.exit()
 
     def executarBFS(self, initialVertice):
-        print('executando BFS')
-        ...
+        visited = self.grafo.BFS_tree(1)
+
+        for key, value in visited.items():
+            print("Vértice:", key, "Nível:", value)
     
     def executarDFS(self, initialVertice):
         print('executando DFS')
@@ -57,7 +59,7 @@ class GrafoLib:
         ...
 
     def executarPrintGraph(self):
-        print(self.grafo)
+        print(self.grafo.adj)
     
 
         
