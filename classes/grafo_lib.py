@@ -22,14 +22,19 @@ class GrafoLib:
             sys.exit()
 
     def executarBFS(self, initialVertice):
-        visited = self.grafo.BFS_tree(1)
+        visited = self.grafo.BFS_tree(initialVertice)
 
         for key, value in visited.items():
             print("Vértice:", key, "Nível:", value)
     
     def executarDFS(self, initialVertice):
-        print('executando DFS')
-        ...
+        visited = {}
+        level = 0
+        
+        self.grafo.DFS_tree(initialVertice, level, visited)
+
+        for key, value in visited.items():
+            print("Vértice:", key, "Nível:", value)
 
     def executarEncontrarComponentesConexos(self):
         print('executando encontrarComponentesConexos')

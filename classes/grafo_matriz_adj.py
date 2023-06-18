@@ -164,6 +164,14 @@ class GrafoMatrizAdj(Grafo):
 
         return visited
 
+    def DFS_tree(self, initialVertice, level, visited):
+        visited[initialVertice] = 0
+
+        for neighbour in range(len(self.adj[initialVertice])):
+            if self.adj[initialVertice][neighbour] != 0 and neighbour not in visited:
+                self.DFS_tree(neighbour, level+1, visited)
+        
+
     def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
         if(self.ponderado is False):
             return self.BFS(self.adj, v1, v2)

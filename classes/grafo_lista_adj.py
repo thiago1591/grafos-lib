@@ -139,6 +139,13 @@ class GrafoListaAdj(Grafo):
         
         return visited
 
+    def DFS_tree(self, initialVertice, level, visited):
+        visited[initialVertice] = level
+
+        for neighbour, _ in self.adj[initialVertice]:
+            if neighbour not in visited:
+                self.DFS_tree(neighbour, level+1, visited)
+
     def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
         if(self.ponderado is False):
             return self.BFS(self.adj, v1, v2)
