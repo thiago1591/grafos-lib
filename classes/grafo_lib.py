@@ -12,7 +12,9 @@ class GrafoLib:
         self.instanciarGrafo()
 
     def instanciarGrafo(self):
-        arestas = obterArestas(self.caminho_arq)
+        arestas, n_arestas = obterArestas(self.caminho_arq)
+
+        self.n_arestas = n_arestas
 
         if(self.tipo_representacao == "lista"):
             self.grafo = GrafoListaAdj(arestas)
@@ -23,21 +25,42 @@ class GrafoLib:
             sys.exit()
 
     def executarBFS(self, initialNode):
+        if initialNode not in self.grafo.adj:
+            print("Vértice inicial não existe no grafo")
+            return False
+        
         visited = self.grafo.BFS_tree(initialNode)
 
+        output_file = open("outputs/bfs_result.txt", "w", encoding="utf-8")
+
+        output_file.write("Árvore BFS (ordenado por ordem de acesso)\n")
         for key, value in visited.items():
-            print("Vértice:", key, "Nível:", value)
+            output_file.write("Vértice: " + str(key) + " Nível: " + str(value) + "\n")
+
+        output_file.close()
     
-    def executarDFS(self):
+    def executarDFS(self, initialNode):
+        if initialNode not in self.grafo.adj:
+            print("Vértice inicial não existe no grafo")
+            return False
+
         visited = {}
         level = 0
+
+        self.grafo.DFS_tree(initialNode, level, visited)
 
         for vertex in self.grafo.adj:
             if vertex not in visited:
                 self.grafo.DFS_tree(vertex, level, visited)
 
+        output_file = open("outputs/dfs_result.txt", "w", encoding="utf-8")
+
+
+        output_file.write("Árvore DFS (ordenado por ordem de acesso)\n")
         for key, value in visited.items():
-            print("Vértice:", key, "Nível:", value)
+            output_file.write("Vértice: " + str(key) + " Nível: " + str(value) + "\n")
+
+        output_file.close()
 
     def encontrarComponentesConexos(self):
         visited = {}
@@ -74,6 +97,7 @@ class GrafoLib:
                 distances.append(distance)
 
         mean = sum(distances) / len(distances)
+
         print("média das distâncias: {:.2f}".format(mean))
 
     def executarEncontrarDistancia2Vertices(self, v1, v2):
@@ -97,6 +121,37 @@ class GrafoLib:
 
     def executarPrintGraph(self):
         print(self.grafo.adj)
-    
 
+    def calcularDistribuiçãoEmpirica(self):
+        contagem_graus = {}
+        total_vertices = len(self.grafo.graus)
+
+        for num in range(1, max(self.grafo.graus)+1):
+            contagem_graus[num] = 0
+
+        for grau in self.grafo.graus:
+            if grau in contagem_graus:
+                contagem_graus[grau] += 1
+            else:
+                contagem_graus[grau] = 1
+
+        distribuicao_empirica = [(grau, contagem_graus[grau] / total_vertices) for grau in contagem_graus]
+
+        distribuicao_empirica.sort(key=lambda x: x[0])
+
+        return distribuicao_empirica
+
+    def executarGerarInformacoes(self):
+        output_file = open("outputs/result.txt", "w", encoding="utf-8")
+
+        output_file.write("# n = " + str(self.grafo.num_vertices) + "\n")
+        output_file.write("# m = " + self.n_arestas)
+        output_file.write("# d_medio = " + str(self.grafo.grau_medio) + "\n")
+        
+        distribuicao = self.calcularDistribuiçãoEmpirica()
+
+        for grau, probabilidade in distribuicao:
+            output_file.write(str(grau) + " " + str(probabilidade) + "\n")
+
+        output_file.close()
         

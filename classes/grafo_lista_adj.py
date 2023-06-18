@@ -6,6 +6,9 @@ class GrafoListaAdj(Grafo):
     def __init__(self, arestas):
         self.adj = defaultdict(set)
         self.criar_grafo(arestas)
+        self.num_vertices = len(self.obter_vertices())
+        self.graus = self.obter_graus()
+        self.grau_medio = self.obter_grau_medio()
 
     def criar_grafo(self, arestas):
         self.ponderado = len(arestas[0]) > 2
@@ -16,11 +19,27 @@ class GrafoListaAdj(Grafo):
                 self.adj[v].add((u,p))
         else:
             for u, v in arestas:
-                self.adj[u].add(p)
-                self.adj[v].add(p)
+                self.adj[u].add((v,1))
+                self.adj[v].add((u,1))
 
     def obter_vertices(self):
         return list(self.adj.keys())
+
+    def obter_graus(self):
+        graus = []
+
+        vertices_ordenado = sorted(self.adj.items())
+
+        for _, vertice_adj in vertices_ordenado:
+            grau = len(vertice_adj)
+            graus.append(grau)
+            
+        return graus
+
+    def obter_grau_medio(self):
+        graus = self.graus
+        grau_medio = sum(graus) / len(graus)
+        return grau_medio
 
     def obter_arestas(self):
         return [(k, v) for k in self.adj.keys() for v in self.adj[k]]
@@ -140,11 +159,11 @@ class GrafoListaAdj(Grafo):
         
         return visited
 
-    def DFS_tree(self, vértice, level, visited, component = []):
-        visited[vértice] = level
-        component.append(vértice)
+    def DFS_tree(self, node, level, visited, component = []):
+        visited[node] = level
+        component.append(node)
 
-        for neighbour, _ in self.adj[vértice]:
+        for neighbour, _ in self.adj[node]:
             if neighbour not in visited:
                 self.DFS_tree(neighbour, level+1, visited, component)
 

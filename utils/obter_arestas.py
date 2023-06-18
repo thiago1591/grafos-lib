@@ -3,6 +3,8 @@ def obterArestas(nome_arquivo):
     
     with open(nome_arquivo, 'r') as arquivo:
         linhas = arquivo.readlines()
+        
+        n_arestas = linhas[0]
         linhas.pop(0)
         
         for linha in linhas:
@@ -17,4 +19,4 @@ def obterArestas(nome_arquivo):
                 origem = int(aresta[0])
                 destino = int(aresta[1])
                 arestas.append((origem, destino))
-    return arestas
+    return arestas, n_arestas

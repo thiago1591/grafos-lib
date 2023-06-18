@@ -7,6 +7,8 @@ class GrafoMatrizAdj(Grafo):
         self.num_vertices = 0
         self.adj = []
         self.criar_grafo(arestas)
+        self.graus = self.obter_graus()
+        self.grau_medio = self.obter_grau_medio()
 
     def criar_grafo(self, arestas):
         self.ponderado = len(arestas[0]) > 2
@@ -33,6 +35,20 @@ class GrafoMatrizAdj(Grafo):
 
     def obter_vertices(self):
         return range(self.num_vertices)
+
+    def obter_graus(self):
+        graus = []
+
+        for i in range(len(self.adj)):
+            grau = sum(1 for j in self.adj[i] if j != 0)
+            graus.append(grau)
+        
+        return graus
+
+    def obter_grau_medio(self):
+        graus = self.graus
+        grau_medio = sum(graus) / len(graus)
+        return grau_medio
 
     def obter_arestas(self):
         arestas = []
@@ -164,12 +180,12 @@ class GrafoMatrizAdj(Grafo):
 
         return visited
 
-    def DFS_tree(self, vértice, level, visited, component = []):
-        visited[vértice] = level
-        component.append(vértice)
+    def DFS_tree(self, node, level, visited, component = []):
+        visited[node] = level
+        component.append(node)
 
-        for neighbour in range(len(self.adj[vértice])):
-            if self.adj[vértice][neighbour] != 0 and neighbour not in visited:
+        for neighbour in range(len(self.adj[node])):
+            if self.adj[node][neighbour] != 0 and neighbour not in visited:
                 self.DFS_tree(neighbour, level+1, visited)
 
     def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):

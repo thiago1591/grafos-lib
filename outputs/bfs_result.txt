@@ -1,0 +1,5 @@
+Árvore BFS (ordenado por ordem de acesso)
+Vértice: 1 Nível: 0
+Vértice: 2 Nível: 1
+Vértice: 4 Nível: 1
+Vértice: 3 Nível: 2

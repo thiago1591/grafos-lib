@@ -7,9 +7,10 @@ lib = GrafoLib({
 # lib.executarEncontrarDistanciaUmVerticeParaTodos(1)
 # lib.grafo.print_graph()
 
-# lib.executarDFS()
+# lib.executarBFS(1)
+# lib.executarDFS(1)
 # lib.executarEncontrarComponentesConexos()
-lib.executarEcontrarDistanciaMedia()
+# lib.executarEcontrarDistanciaMedia()
 
 # lib.BFS(0)
 # lib.DFS(0)
@@ -17,3 +18,5 @@ lib.executarEcontrarDistanciaMedia()
 # lib.encontrarDistanciaECaminhoMinimo()
 # lib.encontrarMST()
 # lib.encontrarDistanciaMedia()
+
+lib.executarGerarInformacoes()
