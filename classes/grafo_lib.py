@@ -3,6 +3,7 @@ import sys
 from classes.grafo_lista_adj import GrafoListaAdj
 from classes.grafo_matriz_adj import GrafoMatrizAdj
 from utils.obter_arestas import obterArestas
+import itertools
 
 class GrafoLib:
     def __init__(self, config):
@@ -21,29 +22,60 @@ class GrafoLib:
             print('Representação inválida. Escolha entre "lista" e "matriz"')
             sys.exit()
 
-    def executarBFS(self, initialVertice):
-        visited = self.grafo.BFS_tree(initialVertice)
+    def executarBFS(self, initialNode):
+        visited = self.grafo.BFS_tree(initialNode)
 
         for key, value in visited.items():
             print("Vértice:", key, "Nível:", value)
     
-    def executarDFS(self, initialVertice):
+    def executarDFS(self):
         visited = {}
         level = 0
-        
-        self.grafo.DFS_tree(initialVertice, level, visited)
+
+        for vertex in self.grafo.adj:
+            if vertex not in visited:
+                self.grafo.DFS_tree(vertex, level, visited)
 
         for key, value in visited.items():
             print("Vértice:", key, "Nível:", value)
 
+    def encontrarComponentesConexos(self):
+        visited = {}
+        components = []
+        level = 0
+
+        for vertex in self.grafo.adj:
+            if vertex not in visited:
+                component = []
+                self.grafo.DFS_tree(vertex, level, visited, component)
+                components.append(component)
+
+        components.sort(key=len, reverse=True)
+
+        return components
+    
     def executarEncontrarComponentesConexos(self):
-        print('executando encontrarComponentesConexos')
-        ...
+        components = self.encontrarComponentesConexos()
+
+        print("Número de componentes conexos:", len(components))
+
+        for i, component in enumerate(components, 1):
+            print("Componente", i, ":", component, "---> Tamanho: ", len(component))
 
     def executarEcontrarDistanciaMedia(self):
-        print('executando encontrarDistanciaMedia')
-        ...
-    
+        components = self.encontrarComponentesConexos()
+        distances = []
+
+        for component in components:
+            verticesCombination = list(itertools.combinations(component, 2))
+
+            for vertices in verticesCombination:
+                distance, _ = self.grafo.encontrarDistanciaECaminhoMinimo2Vertices(vertices[0], vertices[1])
+                distances.append(distance)
+
+        mean = sum(distances) / len(distances)
+        print("média das distâncias: {:.2f}".format(mean))
+
     def executarEncontrarDistancia2Vertices(self, v1, v2):
         distancia, caminho = self.grafo.dijkstra2Vertices(v1, v2)
 

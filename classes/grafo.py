@@ -41,11 +41,11 @@ class Grafo(ABC):
         raise NotImplementedError("Método BFS deve ser implementado nas subclasses")
     
     @abstractmethod
-    def BFS_tree(self, initialVertice):
+    def BFS_tree(self, initialNode):
         raise NotImplementedError("Método BFS_tree deve ser implementado nas subclasses")
 
     @abstractmethod
-    def DFS_tree(self, initialVertice, level, visited):
+    def DFS_tree(self, vértice, level, visited, component):
         raise NotImplementedError("Método DFS_tree deve ser implementado nas subclasses")
 
     @abstractmethod

@@ -112,6 +112,7 @@ class GrafoListaAdj(Grafo):
 
             for neighbor in self.adj[current_vertex]:
                 if neighbor not in visited:
+                    print(neighbor)
                     visited.add(neighbor)
                     queue.append(neighbor)
                     distances[neighbor] = distances[current_vertex] + 1
@@ -122,12 +123,12 @@ class GrafoListaAdj(Grafo):
 
         return distances[v2], paths[v2]
     
-    def BFS_tree(self, initialVertice):
+    def BFS_tree(self, initialNode):
         visited = {}
         queue = []
 
-        visited[initialVertice] = 0
-        queue.append(initialVertice)
+        visited[initialNode] = 0
+        queue.append(initialNode)
 
         while queue:
             s = queue.pop(0)
@@ -139,15 +140,16 @@ class GrafoListaAdj(Grafo):
         
         return visited
 
-    def DFS_tree(self, initialVertice, level, visited):
-        visited[initialVertice] = level
+    def DFS_tree(self, vértice, level, visited, component = []):
+        visited[vértice] = level
+        component.append(vértice)
 
-        for neighbour, _ in self.adj[initialVertice]:
+        for neighbour, _ in self.adj[vértice]:
             if neighbour not in visited:
-                self.DFS_tree(neighbour, level+1, visited)
+                self.DFS_tree(neighbour, level+1, visited, component)
 
     def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
         if(self.ponderado is False):
             return self.BFS(self.adj, v1, v2)
         else:
-            return self.dijkstra2Vertices(self.adj, v1, v2)
+            return self.dijkstra2Vertices(v1, v2)
