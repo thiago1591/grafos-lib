@@ -178,7 +178,7 @@ class GrafoListaAdj(Grafo):
 
         for vertex in self.adj:
             if vertex not in visited:
-                self.grafo.run_DFS_tree(vertex, level, visited)
+                self.run_DFS_tree(vertex, level, visited)
 
     def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
         if(self.ponderado is False):

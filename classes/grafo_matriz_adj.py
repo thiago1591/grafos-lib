@@ -190,6 +190,11 @@ class GrafoMatrizAdj(Grafo):
 
     def DFS_tree(self, initialNode, level, visited):
         self.run_DFS_tree(initialNode, level, visited)
+        
+        for vertex in range(len(self.adj)):
+            if vertex not in visited and vertex != 0:
+                self.run_DFS_tree(vertex, level, visited)
+
 
     def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
         if(self.ponderado is False):
