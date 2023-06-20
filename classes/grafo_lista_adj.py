@@ -162,13 +162,23 @@ class GrafoListaAdj(Grafo):
         
         return visited
 
-    def DFS_tree(self, node, level, visited, component = []):
+    def run_DFS_tree(self, node, level, visited, component = []):
+        if node not in self.adj:
+            return False
+        
         visited[node] = level
         component.append(node)
 
         for neighbour, _ in self.adj[node]:
             if neighbour not in visited:
-                self.DFS_tree(neighbour, level+1, visited, component)
+                self.run_DFS_tree(neighbour, level+1, visited, component)
+
+    def DFS_tree(self, initialNode, level, visited):
+        self.run_DFS_tree(initialNode, level, visited)
+
+        for vertex in self.adj:
+            if vertex not in visited:
+                self.grafo.run_DFS_tree(vertex, level, visited)
 
     def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
         if(self.ponderado is False):

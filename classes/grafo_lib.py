@@ -40,21 +40,12 @@ class GrafoLib:
         output_file.close()
     
     def executarDFS(self, initialNode):
-        if initialNode not in self.grafo.adj:
-            print("Vértice inicial não existe no grafo")
-            return False
-
         visited = {}
         level = 0
 
         self.grafo.DFS_tree(initialNode, level, visited)
 
-        for vertex in self.grafo.adj:
-            if vertex not in visited:
-                self.grafo.DFS_tree(vertex, level, visited)
-
         output_file = open("outputs/dfs_result.txt", "w", encoding="utf-8")
-
 
         output_file.write("Árvore DFS (ordenado por ordem de acesso)\n")
         for key, value in visited.items():
