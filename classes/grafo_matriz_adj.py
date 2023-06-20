@@ -140,8 +140,8 @@ class GrafoMatrizAdj(Grafo):
 
         return distancias, caminhos
     
-    def verificarVerticeInicialExiste(self, initialNode):
-        if initialNode not in range(1, len(self.adj)):
+    def verificarVerticeInicialExiste(self, initialVertex):
+        if initialVertex not in range(1, len(self.adj)):
             return False
         return True
 
@@ -168,12 +168,12 @@ class GrafoMatrizAdj(Grafo):
 
         return distances[v2], paths[v2]
 
-    def BFS_tree(self, initialNode):
+    def BFS_tree(self, initialVertex):
         visited = {}
         queue = []
 
-        visited[initialNode] = 0
-        queue.append(initialNode)
+        visited[initialVertex] = 0
+        queue.append(initialVertex)
 
         while queue:
             s = queue.pop(0)
@@ -185,16 +185,16 @@ class GrafoMatrizAdj(Grafo):
 
         return visited
 
-    def run_DFS_tree(self, node, level, visited, component):
-        visited[node] = level
-        component.append(node)
+    def run_DFS_tree(self, vertex, level, visited, component):
+        visited[vertex] = level
+        component.append(vertex)
 
-        for neighbour in range(len(self.adj[node])):
-            if self.adj[node][neighbour] != 0 and neighbour not in visited:
+        for neighbour in range(len(self.adj[vertex])):
+            if self.adj[vertex][neighbour] != 0 and neighbour not in visited:
                 self.run_DFS_tree(neighbour, level+1, visited, component)
 
-    def DFS_tree(self, initialNode, level, visited, component = []):
-        self.run_DFS_tree(initialNode, level, visited, component)
+    def DFS_tree(self, initialVertex, level, visited, component = []):
+        self.run_DFS_tree(initialVertex, level, visited, component)
         
         for vertex in range(len(self.adj)):
             if vertex not in visited and vertex != 0:

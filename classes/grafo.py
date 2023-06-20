@@ -45,7 +45,7 @@ class Grafo(ABC):
         raise NotImplementedError("Método dijkstraTodosVertices deve ser implementado nas subclasses")
     
     @abstractmethod
-    def verificarVerticeInicialExiste(self, initialNode):
+    def verificarVerticeInicialExiste(self, initialVertex):
         raise NotImplementedError("Método verificarVerticeInicialExiste deve ser implementado nas subclasses")
 
     @abstractmethod
@@ -53,15 +53,15 @@ class Grafo(ABC):
         raise NotImplementedError("Método BFS deve ser implementado nas subclasses")
     
     @abstractmethod
-    def BFS_tree(self, initialNode):
+    def BFS_tree(self, initialVertex):
         raise NotImplementedError("Método BFS_tree deve ser implementado nas subclasses")
 
     @abstractmethod
-    def run_DFS_tree(self, node, level, visited, component):
+    def run_DFS_tree(self, vertex, level, visited, component):
         raise NotImplementedError("Método run_DFS_tree deve ser implementado nas subclasses")
 
     @abstractmethod
-    def DFS_tree(self, initialNode, level, visited, component = []):
+    def DFS_tree(self, initialVertex, level, visited, component = []):
         raise NotImplementedError("Método DFS_tree deve ser implementado nas subclasses")
 
     @abstractmethod

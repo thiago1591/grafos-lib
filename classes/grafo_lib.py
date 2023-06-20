@@ -24,14 +24,14 @@ class GrafoLib:
             print('Representação inválida. Escolha entre "lista" e "matriz"')
             sys.exit()
 
-    def executarBFS(self, initialNode):
-        initialNodeExists = self.grafo.verificarVerticeInicialExiste(initialNode)
+    def executarBFS(self, initialVertex):
+        initialVertexExists = self.grafo.verificarVerticeInicialExiste(initialVertex)
 
-        if (initialNodeExists == False):
+        if (initialVertexExists == False):
             print("Vértice inicial não existe no grafo")
             return False
         
-        visited = self.grafo.BFS_tree(initialNode)
+        visited = self.grafo.BFS_tree(initialVertex)
 
         output_file = open("outputs/bfs_result.txt", "w", encoding="utf-8")
 
@@ -41,11 +41,11 @@ class GrafoLib:
 
         output_file.close()
     
-    def executarDFS(self, initialNode):
+    def executarDFS(self, initialVertex):
         visited = {}
         level = 0
 
-        self.grafo.DFS_tree(initialNode, level, visited)
+        self.grafo.DFS_tree(initialVertex, level, visited)
 
         output_file = open("outputs/dfs_result.txt", "w", encoding="utf-8")
 
