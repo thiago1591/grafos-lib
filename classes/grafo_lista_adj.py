@@ -143,6 +143,9 @@ class GrafoListaAdj(Grafo):
         return distances[v2], paths[v2]
     
     def BFS_tree(self, initialNode):
+        if initialNode not in self.adj:
+            return False
+        
         visited = {}
         queue = []
 
