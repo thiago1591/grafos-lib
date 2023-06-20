@@ -172,3 +172,31 @@ class GrafoListaAdj(Grafo):
             return self.BFS(self.adj, v1, v2)
         else:
             return self.dijkstra2Vertices(v1, v2)
+        
+    def prim(self):
+        mst = defaultdict(set)
+        
+        start_vertex = list(self.adj.keys())[0]
+        
+        visited = set([start_vertex])
+        
+        edges = [
+            (weight, start_vertex, neighbor)
+            for neighbor, weight in self.adj[start_vertex]
+        ]
+        heapq.heapify(edges)
+        
+        while edges:
+            weight, u, v = heapq.heappop(edges)
+            
+            if v not in visited:
+                mst[u].add((v, weight))
+                mst[v].add((u, weight))
+                
+                visited.add(v)
+                
+                for neighbor, weight in self.adj[v]:
+                    if neighbor not in visited:
+                        heapq.heappush(edges, (weight, v, neighbor))
+        
+        return dict(mst)

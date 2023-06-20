@@ -43,8 +43,7 @@ class GrafoLib:
         if initialNode not in self.grafo.adj:
             print("Vértice inicial não existe no grafo")
             return False
-
-        visited = {}
+            visited = {}
         level = 0
 
         self.grafo.DFS_tree(initialNode, level, visited)
@@ -114,10 +113,6 @@ class GrafoLib:
             caminho = caminhos[vertice]
             print(f"Distância para o vértice {vertice}: {distancia}")
             print(f"Caminho para o vértice {vertice}: {caminho}")
-    
-    def executarEncontrarMST(self):
-        print('executando encontrarMST')
-        ...
 
     def executarPrintGraph(self):
         print(self.grafo.adj)
@@ -138,8 +133,23 @@ class GrafoLib:
         distribuicao_empirica = [(grau, contagem_graus[grau] / total_vertices) for grau in contagem_graus]
 
         distribuicao_empirica.sort(key=lambda x: x[0])
-
+        print(distribuicao_empirica)
         return distribuicao_empirica
+    
+    def executarMST(self):
+        mst = self.grafo.prim()
+        output_file = open("outputs/mst_result.txt", "w", encoding="utf-8")
+        output_file.write("Aresta\t\tPeso\n")
+        written_edges = set()  
+        sum_weights = 0
+        for vertice, aresta in mst.items():
+            for v, w in aresta:
+                edge = tuple(sorted([vertice, v])) 
+                if edge not in written_edges:
+                    output_file.write(f"{vertice} - {v}\t\t{w}\n")
+                    written_edges.add(edge)
+                    sum_weights += w
+        print(f'O peso da árvore é {sum_weights}')
 
     def executarGerarInformacoes(self):
         output_file = open("outputs/result.txt", "w", encoding="utf-8")

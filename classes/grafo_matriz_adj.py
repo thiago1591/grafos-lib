@@ -1,6 +1,6 @@
 import heapq
 from classes.grafo import Grafo
-from collections import deque
+from collections import deque, defaultdict
 
 class GrafoMatrizAdj(Grafo):
     def __init__(self, arestas):
@@ -32,7 +32,14 @@ class GrafoMatrizAdj(Grafo):
                 node1, node2 = edge
 
                 self.adicionar_aresta(node1, node2, 1)
-
+        output_file = open("teste/grafo_1.txt", "w", encoding="utf-8")
+        for row in self.adj:
+            for i, item in enumerate(row):
+                if i == len(row) - 1:  # Último item da linha
+                    output_file.write(f"{item}")
+                else:
+                    output_file.write(f"{item}, ")
+            output_file.write("\n")
     def obter_vertices(self):
         return range(self.num_vertices)
 
@@ -193,3 +200,36 @@ class GrafoMatrizAdj(Grafo):
             return self.BFS(self.adj, v1, v2)
         else:
             return self.dijkstra2Vertices(v1, v2)
+    
+    def prim(self):
+        num_vertices = len(self.adj)
+        
+        mst = defaultdict(set)
+        
+        start_vertex = 1
+        
+        visited = set([start_vertex])
+        
+        edges = [
+            (weight, start_vertex, neighbor)
+            for neighbor, weight in enumerate(self.adj[start_vertex])
+            if weight != 0
+        ]
+        heapq.heapify(edges)
+        
+        while edges and len(visited) < num_vertices:
+            weight, u, v = heapq.heappop(edges)
+            
+            if v not in visited:
+                mst[u].add((v, weight))
+                mst[v].add((u, weight))
+                
+                visited.add(v)
+                
+                for neighbor, weight in enumerate(self.adj[v]):
+                    if weight != 0 and neighbor not in visited:
+                        heapq.heappush(edges, (weight, v, neighbor))
+        
+        return dict(mst)
+        
+    

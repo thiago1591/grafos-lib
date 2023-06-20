@@ -59,3 +59,8 @@ class Grafo(ABC):
     @abstractmethod
     def encontrarDistanciaECaminhoMinimo2Vertices(self):
         raise NotImplementedError("Método encontrarDistanciaECaminhoMinimo2Vertices deve ser implementado nas subclasses")
+    
+    @abstractmethod
+    def prim(self):
+        raise NotImplementedError("Método DFS_tree deve ser implementado nas subclasses")
+    

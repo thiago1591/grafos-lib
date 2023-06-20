@@ -1,22 +1,19 @@
 from classes.grafo_lib import *
+import sys
+sys.setrecursionlimit(1000000)
 
 lib = GrafoLib({
     "tipo_representacao": 'lista',
-    "caminho_grafo_arq": "inputs/grafo_0.txt"
+    "caminho_grafo_arq": "inputs/grafo_2.txt"
 })
-# lib.executarEncontrarDistanciaUmVerticeParaTodos(1)
-# lib.grafo.print_graph()
-
-# lib.executarBFS(1)
-# lib.executarDFS(1)
-# lib.executarEncontrarComponentesConexos()
-# lib.executarEcontrarDistanciaMedia()
-
-# lib.BFS(0)
-# lib.DFS(0)
-# lib.encontrarComponentesConexos()
-# lib.encontrarDistanciaECaminhoMinimo()
-# lib.encontrarMST()
-# lib.encontrarDistanciaMedia()
-
-lib.executarGerarInformacoes()
+#lib.executarMST()
+#lib.executarBFS(22)
+#lib.executarDFS(22)
+#lib.encontrarComponentesConexos()
+#lib.executarEncontrarComponentesConexos()
+lib.executarEcontrarDistanciaMedia()
+#lib.executarEncontrarDistancia2Vertices(1, 10000)
+#lib.executarEncontrarDistanciaUmVerticeParaTodos(22)
+#lib.calcularDistribuiçãoEmpirica()
+#lib.executarMST()
+# lib.executarGerarInformacoes()
