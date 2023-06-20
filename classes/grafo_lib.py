@@ -24,12 +24,14 @@ class GrafoLib:
             print('Representação inválida. Escolha entre "lista" e "matriz"')
             sys.exit()
 
-    def executarBFS(self, initialNode):
-        if initialNode not in self.grafo.adj:
+    def executarBFS(self, initialVertex):
+        initialVertexExists = self.grafo.verificarVerticeInicialExiste(initialVertex)
+
+        if (initialVertexExists == False):
             print("Vértice inicial não existe no grafo")
             return False
         
-        visited = self.grafo.BFS_tree(initialNode)
+        visited = self.grafo.BFS_tree(initialVertex)
 
         output_file = open("outputs/bfs_result.txt", "w", encoding="utf-8")
 
@@ -39,21 +41,13 @@ class GrafoLib:
 
         output_file.close()
     
-    def executarDFS(self, initialNode):
-        if initialNode not in self.grafo.adj:
-            print("Vértice inicial não existe no grafo")
-            return False
-            visited = {}
+    def executarDFS(self, initialVertex):
+        visited = {}
         level = 0
 
-        self.grafo.DFS_tree(initialNode, level, visited)
-
-        for vertex in self.grafo.adj:
-            if vertex not in visited:
-                self.grafo.DFS_tree(vertex, level, visited)
+        self.grafo.DFS_tree(initialVertex, level, visited)
 
         output_file = open("outputs/dfs_result.txt", "w", encoding="utf-8")
-
 
         output_file.write("Árvore DFS (ordenado por ordem de acesso)\n")
         for key, value in visited.items():
@@ -62,15 +56,7 @@ class GrafoLib:
         output_file.close()
 
     def encontrarComponentesConexos(self):
-        visited = {}
-        components = []
-        level = 0
-
-        for vertex in self.grafo.adj:
-            if vertex not in visited:
-                component = []
-                self.grafo.DFS_tree(vertex, level, visited, component)
-                components.append(component)
+        components = self.grafo.encontrarComponentesConexos()
 
         components.sort(key=len, reverse=True)
 
@@ -86,6 +72,7 @@ class GrafoLib:
 
     def executarEcontrarDistanciaMedia(self):
         components = self.encontrarComponentesConexos()
+        
         distances = []
 
         for component in components:

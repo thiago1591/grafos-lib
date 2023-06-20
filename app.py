@@ -4,8 +4,9 @@ sys.setrecursionlimit(1000000)
 
 lib = GrafoLib({
     "tipo_representacao": 'lista',
-    "caminho_grafo_arq": "inputs/grafo_2.txt"
+    "caminho_grafo_arq": "inputs/grafo_5.txt"
 })
+
 #lib.executarMST()
 #lib.executarBFS(22)
 #lib.executarDFS(22)
@@ -16,4 +17,4 @@ lib.executarEcontrarDistanciaMedia()
 #lib.executarEncontrarDistanciaUmVerticeParaTodos(22)
 #lib.calcularDistribuiçãoEmpirica()
 #lib.executarMST()
-# lib.executarGerarInformacoes()
+lib.executarGerarInformacoes()
