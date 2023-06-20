@@ -25,11 +25,13 @@ class GrafoLib:
             sys.exit()
 
     def executarBFS(self, initialNode):
-        visited = self.grafo.BFS_tree(initialNode)
+        initialNodeExists = self.grafo.verificarVerticeInicialExiste(initialNode)
 
-        if (visited == False):
+        if (initialNodeExists == False):
             print("Vértice inicial não existe no grafo")
             return False
+        
+        visited = self.grafo.BFS_tree(initialNode)
 
         output_file = open("outputs/bfs_result.txt", "w", encoding="utf-8")
 

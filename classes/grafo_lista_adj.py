@@ -112,6 +112,11 @@ class GrafoListaAdj(Grafo):
 
         return distancias, caminhos
 
+    def verificarVerticeInicialExiste(self, initialNode):
+        if initialNode not in self.adj:
+            return False
+        return True
+
     def BFS(self, v1, v2):
         visited = set()
         distances = {}
@@ -143,9 +148,6 @@ class GrafoListaAdj(Grafo):
         return distances[v2], paths[v2]
     
     def BFS_tree(self, initialNode):
-        if initialNode not in self.adj:
-            return False
-        
         visited = {}
         queue = []
 
@@ -185,10 +187,10 @@ class GrafoListaAdj(Grafo):
         components = []
         level = 0
 
-        for vertex in self.adj:
-            if vertex not in visited:
+        for node in self.adj:
+            if node not in visited:
                 component = []
-                self.run_DFS_tree(vertex, level, visited, component)
+                self.run_DFS_tree(node, level, visited, component)
                 components.append(component)
         
         return components

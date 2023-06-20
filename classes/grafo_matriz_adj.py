@@ -140,6 +140,11 @@ class GrafoMatrizAdj(Grafo):
 
         return distancias, caminhos
     
+    def verificarVerticeInicialExiste(self, initialNode):
+        if initialNode not in range(1, len(self.adj)):
+            return False
+        return True
+
     def BFS(grafo, v1, v2):
         num_vertices = len(grafo)
         visited = [False] * num_vertices

@@ -1,15 +1,15 @@
 from classes.grafo_lib import *
 
 lib = GrafoLib({
-    "tipo_representacao": 'matriz',
+    "tipo_representacao": 'lista',
     "caminho_grafo_arq": "inputs/grafo_5.txt"
 })
 # lib.executarEncontrarDistanciaUmVerticeParaTodos(1)
 # lib.grafo.print_graph()
 
-# lib.executarBFS(1)
+lib.executarBFS(1)
 # lib.executarDFS(1)
-lib.executarEncontrarComponentesConexos()
+# lib.executarEncontrarComponentesConexos()
 # lib.executarEcontrarDistanciaMedia()
 
 # lib.BFS(0)
