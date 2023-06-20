@@ -8,8 +8,8 @@ lib = GrafoLib({
 # lib.grafo.print_graph()
 
 # lib.executarBFS(1)
-lib.executarDFS(1)
-# lib.executarEncontrarComponentesConexos()
+# lib.executarDFS(1)
+lib.executarEncontrarComponentesConexos()
 # lib.executarEcontrarDistanciaMedia()
 
 # lib.BFS(0)

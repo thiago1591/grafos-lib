@@ -53,8 +53,16 @@ class Grafo(ABC):
         raise NotImplementedError("Método BFS_tree deve ser implementado nas subclasses")
 
     @abstractmethod
-    def DFS_tree(self, initialNode, level, visited):
+    def run_DFS_tree(self, node, level, visited, component):
+        raise NotImplementedError("Método run_DFS_tree deve ser implementado nas subclasses")
+
+    @abstractmethod
+    def DFS_tree(self, initialNode, level, visited, component = []):
         raise NotImplementedError("Método DFS_tree deve ser implementado nas subclasses")
+
+    @abstractmethod
+    def encontrarComponentesConexos(self):
+        raise NotImplementedError("Método encontrarComponentesConexos deve ser implementado nas subclasses")
 
     @abstractmethod
     def encontrarDistanciaECaminhoMinimo2Vertices(self):

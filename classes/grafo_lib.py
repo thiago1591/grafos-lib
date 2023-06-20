@@ -54,15 +54,7 @@ class GrafoLib:
         output_file.close()
 
     def encontrarComponentesConexos(self):
-        visited = {}
-        components = []
-        level = 0
-
-        for vertex in self.grafo.adj:
-            if vertex not in visited:
-                component = []
-                self.grafo.DFS_tree(vertex, level, visited, component)
-                components.append(component)
+        components = self.grafo.encontrarComponentesConexos()
 
         components.sort(key=len, reverse=True)
 
@@ -78,6 +70,8 @@ class GrafoLib:
 
     def executarEcontrarDistanciaMedia(self):
         components = self.encontrarComponentesConexos()
+        print(components)
+        
         distances = []
 
         for component in components:

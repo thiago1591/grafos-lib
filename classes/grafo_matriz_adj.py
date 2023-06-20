@@ -180,22 +180,34 @@ class GrafoMatrizAdj(Grafo):
 
         return visited
 
-    def run_DFS_tree(self, node, level, visited, component = []):
+    def run_DFS_tree(self, node, level, visited, component):
         visited[node] = level
         component.append(node)
 
         for neighbour in range(len(self.adj[node])):
             if self.adj[node][neighbour] != 0 and neighbour not in visited:
-                self.run_DFS_tree(neighbour, level+1, visited)
+                self.run_DFS_tree(neighbour, level+1, visited, component)
 
-    def DFS_tree(self, initialNode, level, visited):
-        self.run_DFS_tree(initialNode, level, visited)
+    def DFS_tree(self, initialNode, level, visited, component = []):
+        self.run_DFS_tree(initialNode, level, visited, component)
         
         for vertex in range(len(self.adj)):
             if vertex not in visited and vertex != 0:
-                self.run_DFS_tree(vertex, level, visited)
+                self.run_DFS_tree(vertex, level, visited, component)
 
+    def encontrarComponentesConexos(self):
+        visited = {}
+        components = []
+        level = 0
 
+        for vertex in range(len(self.adj)):
+            if vertex not in visited and vertex != 0:
+                component = []
+                self.run_DFS_tree(vertex, level, visited, component)
+                components.append(component)
+        
+        return components
+    
     def encontrarDistanciaECaminhoMinimo2Vertices(self, v1, v2):
         if(self.ponderado is False):
             return self.BFS(self.adj, v1, v2)
