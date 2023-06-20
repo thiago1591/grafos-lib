@@ -70,7 +70,6 @@ class GrafoLib:
 
     def executarEcontrarDistanciaMedia(self):
         components = self.encontrarComponentesConexos()
-        print(components)
         
         distances = []
 
